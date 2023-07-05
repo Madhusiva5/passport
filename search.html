@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>displaydeptfaculties</title>
+    <style>
+       /* table,th,td{
+           border:2px solid black;
+           background-color: darksalmon;
+       } */
+    </style>
+</head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<body>
+    <div class="container  text-center my-5" style="width: 50%;">
+        <h4>Search Event</h4>
+        <br>
+    <form method="post">
+    Event:
+    <select class="form-select" id="t1" name="t6">
+      
+        <option value="coding">coding</option>
+        <option value="paper pres">paper presentation</option>
+        
+        <option value="snapquiz">snap quiz</option>
+        <option value="connection">connection</option>
+        <option value="treasure h">treasure hunt</option>
+        <option value="cooking">cooking</option>
+        <option value="singing">singing</option>
+        <option value="dancing">dancing</option>
+  
+      </select><br>
+    <input type="button" value="submit" onclick="fn()">
+    </form>
+    <br><br>
+    <table id="res" class="table table-striped">
+        
+    </table> 
+</div>
+</body>
+<script>
+    function fn(){
+        let a=document.getElementById("t1").value;
+    fetch('http://localhost:1000/search',{
+        method:"post",
+        headers:{
+            "content-type":"application/json"
+
+        },
+        body:JSON.stringify({t1:a})
+
+    })
+    .then(async(e)=>{
+        var a=await e.json();
+        var temp="<tr><th>Name</th><th>college</th><th>Mobile</th><th>Event</th><th>Accomodation</th></tr>"
+            for(let d of a){
+                temp+="<tr><td>"+d.name+"</td><td>"+d.clg+"</td><td>"+d.contact+"</td><td>"+d.event+"</td><td>"+d.accomodation+"</td></tr>"
+
+            }
+            document.getElementById("res").innerHTML=temp;
+    })
+}
+</script>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>disp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    
+</head>
+<body>
+    <!-- <center>
+    <table id="res" class="table table-striped" style="width: 50%;">
+        
+    </table></center> -->
+
+    <div class="container" id="res">
+
+    </div>
+</body>
+<script>
+    let stat;
+    fetch('http://localhost:4000/display')
+    .then(async(e)=>{
+        var a=await e.json();
+        // var temp="<tr><th>Name</th><th>college</th><th>Mobile</th><th>Event</th><th>Accomodation</th></tr>"
+        var temp = ""
+            for(let d of a){
+                stat = d.status;
+                // temp+="<tr><td>"+d.name+"</td><td>"+d.email+"</td><td>"+d.mblno_+"</td><td>"+d.status+""
+                temp += `<div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">`+d.name+`</h5>
+                    <p class="card-text">`+d.p_type+`</p>
+                    <p class="card-text">`+d.p_office+`</p>
+                    <p class="card-text">`+d.mbl_no+`</p>
+                    <div id="status"></div>
+                    <br>
+                    <a href="#" class="btn btn-primary" onclick="fun()">Check status</a>
+                </div>
+                </div>`
+            }
+            document.getElementById("res").innerHTML=temp;
+    })
+
+    function fun()
+    {
+        // let a = document.getElementById('status').class;
+        // document.getElementById('status').innerHTML="Success"
+        // alert()
+        if(stat==0)
+        {
+            document.getElementById('status').innerHTML="Not yet Verified"
+        }
+        if(stat==1)
+        {
+            document.getElementById('status').innerHTML="Verified by RO ,<br>Two verifications need to be processed"
+        }
+        if(stat==2)
+        {
+            document.getElementById('status').innerHTML="come to police station for verification within 1 week "
+        }
+        if(stat==3)
+        {
+            document.getElementById('status').innerHTML="Successfully Verified you can generate your Passport"
+        }
+    }
+</script>
+</html>

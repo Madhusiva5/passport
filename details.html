@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>disp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    
+    
+    
+
+
+</head>
+<body>
+    <center>
+    <table id="res" class="table table-striped" style="width: 50%;">
+        
+    </table></center>
+</body>
+<script>
+    fetch('http://localhost:4000/allDetails')
+    .then(async(e)=>{
+        var a=await e.json();
+        var temp="<tr><th>Name</th><th>Passport Type</th><th>Passport Office</th><th>Email</th><th>Hint</th><th>RO Status</th><th>Police Status</th><th>Admin Status</th></tr>"
+            for(let d of a){
+                temp+="<tr><td>"+d.name+"</td><td>"+d.p_type+"</td><td>"+d.p_office+"</td><td>"+d.email+"</td><td>"+d.hint_ques+"</td><td><form method='get' action='http://localhost:4000/update1/"+d.email+"'><button class='btn btn-success'>Verify</button></form></td><td><form method='get' action='http://localhost:4000/update2/"+d.email+"'><button class='btn btn-success'>Verify</button></form></td><td><form method='get' action='http://localhost:4000/update3/"+d.email+"'><button class='btn btn-success'>Verify</button></form></td></tr>"
+            }
+            document.getElementById("res").innerHTML=temp;
+    })
+</script>
+</html>
+
+<form method='get' action='http://localhost:4000/update2/"+d.email+"'>
+    <button class='btn btn-success'>Verify</button>
+</form>
